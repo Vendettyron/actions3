@@ -1,1 +1,34 @@
+name: artifacts
+on:
+    push:
+        branches:
+            - main
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Obtener codigo
+              uses: actions/checkout@v3
+            - name: instalar dependencias
+              run: npm ci
+            - name: lintear codigo
+              run: npm run lint
+            - name: Correr Tests
+              run: npm run test
+    build:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+          - name: Obtener codigo
+            uses: actions/checkout@v3
+          - name: instalar dependencias
+            run: npm ci
+          - name: hacer Build
+            run: npm run build
+          - name: Subir el artifact
+            uses: actions/upload-artifact@v6.0.0
+            with:
+                name: archivos de distribucion
+                path: dist
+
 
