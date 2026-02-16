@@ -10,7 +10,7 @@ jobs:
             - name: obtener codigo
               uses: actions/checkout@v6.0.1
             - name: cache e instalar dependencias
-              uses: ./.github/actions/cache/action.yml
+              uses: ./.github/actions/cache
             - name: Lint Codigo
               run: npm run lint
     test:
@@ -19,7 +19,7 @@ jobs:
              - name: obtener codigo
                uses: actions/checkout@v6.0.1
              - name: cache e instalar dependencias
-               uses: ./.github/actions/cache/action.yml
+               uses: ./.github/actions/cache
              - name: ejecutar pruebas
                run: npm test 
     build:
@@ -28,7 +28,7 @@ jobs:
              - name: obtener codigo
                uses: actions/checkout@v6.0.1
              - name: cache e instalar dependencias
-               uses: ./.github/actions/cache/action.yml
+               uses: ./.github/actions/cache
              - name: construir aplicacion
                run: npm run build
              - name: obtner artefactos
