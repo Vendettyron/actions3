@@ -1,1 +1,38 @@
-
+name: deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: obtener codigo
+              uses: actions/checkout@v6.0.1
+            - name: cache e instalar dependencias
+              uses: ./.github/actions/cache/action.yml
+            - name: Lint Codigo
+              run: npm run lint
+    test:
+        runs-on: ubuntu-latest
+        steps:
+             - name: obtener codigo
+               uses: actions/checkout@v6.0.1
+             - name: cache e instalar dependencias
+               uses: ./.github/actions/cache/action.yml
+             - name: ejecutar pruebas
+               run: npm test 
+    build:
+        runs-on: ubuntu-latest
+        steps:
+             - name: obtener codigo
+               uses: actions/checkout@v6.0.1
+             - name: cache e instalar dependencias
+               uses: ./.github/actions/cache/action.yml
+             - name: construir aplicacion
+               run: npm run build
+             - name: obtner artefactos
+               uses: actions/upload-artifact@v6.0.0
+               with:
+                name: build-artifacts
+                path: dist
